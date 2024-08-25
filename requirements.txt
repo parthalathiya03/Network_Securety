@@ -1,0 +1,16 @@
+python-dotenv
+pandas
+numpy
+pymongo
+certifi
+pymongo[srv]
+scikit-learn
+dill
+pyyaml
+xgboost
+fastapi
+uvicorn
+ipykernel
+apache-airflow
+
+-e .

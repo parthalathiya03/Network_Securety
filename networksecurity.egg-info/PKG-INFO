@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: networksecurity
+Version: 0.0.1
+Author: Parth Lathiya
+Author-email: lathiyap46@gmail.com
+License-File: LICENCE
+Requires-Dist: python-dotenv
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: pymongo
+Requires-Dist: certifi
+Requires-Dist: pymongo[srv]
+Requires-Dist: scikit-learn
+Requires-Dist: dill
+Requires-Dist: pyyaml
+Requires-Dist: xgboost
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: ipykernel
+Requires-Dist: apache-airflow
