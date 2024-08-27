@@ -6,14 +6,14 @@ from networksecurity.logger.logger import logging
 
 from networksecurity.components.data_ingestion import DataIngestion
 from networksecurity.components.data_validation import DataValidation
-from networksecurity.components.data_validation import DataTransformation
+from networksecurity.components.data_transformation import DataTransformation
 
 
 from networksecurity.entity.config_entity import(
     TrainingPipelineConfig,
     DataIngestionConfig,
     DataValidationConfig,
-    Data_TransformationConfig
+    DataTransformationConfig
 )
 
 from networksecurity.entity.artifact_entity import (
@@ -54,9 +54,10 @@ class TrainingPipeline:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
     
-    def start_data_transformation(self):
+    def start_data_transformation(self,data_validation_artifact: DataValidationArtifact):
         try:
             data_transformation_config = DataTransformationConfig(training_pipeline_config=self.training_pipeline_config)
+            
             data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact,
                                                      data_transformation_config=data_transformation_config)
             
@@ -93,7 +94,7 @@ class TrainingPipeline:
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact)
             print(data_validation_artifact)
             
-            data_transformation_artifact = self.data_transformation(data_validation_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_validation_artifact)
             print(data_transformation_artifact)
             
         except Exception as e:
