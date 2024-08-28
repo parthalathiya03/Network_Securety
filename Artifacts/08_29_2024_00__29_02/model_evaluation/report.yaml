@@ -1,0 +1,31 @@
+best_model_metric_artifact: null
+best_model_path: null
+improved_accuracy: null
+is_model_accepted: true
+train_model_metric_artifact: !!python/object:networksecurity.entity.artifact_entity.ClassificationMetricArtifact
+  f1_score: !!python/object/apply:numpy._core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    S/TVLqhE7z8=
+  precision_score: !!python/object/apply:numpy._core.multiarray.scalar
+  - *id001
+  - !!binary |
+    VVVVVVVV7z8=
+  recall_score: !!python/object/apply:numpy._core.multiarray.scalar
+  - *id001
+  - !!binary |
+    vww0vww07z8=
+trained_model_path: Artifacts\08_29_2024_00__29_02\model_trainer\trained_model\model.pkl
