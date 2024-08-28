@@ -34,9 +34,6 @@ class DataValidation:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
             
-            
-        except Exception as e:
-            raise NetworkSecurityException(e,sys)
         
     def is_numerical_column_exist(self,dataframe:pd.DataFrame)->bool:
         try:
