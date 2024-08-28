@@ -8,12 +8,29 @@ from networksecurity.entity.artifact_entity import DataTransformationArtifact,Mo
 from networksecurity.entity.config_entity import ModelTrainerConfig
 
 from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score
 
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
 from networksecurity.utils.main_utils.utils import save_object,load_object
 from networksecurity.utils.main_utils.utils import load_numpy_array_data
 from networksecurity.utils.ml_utils.metric.classification_metric import get_classification_score
 
+models = {
+    'XG Boost' : XGBClassifier(),
+    'Random Forest' : RandomForestClassifier()
+} 
+
+hyper_params = {
+    "XG Boost" : {
+        'learning_rate' : [10, 1, 0.1, 0.01, 0.001],
+        'n_estimators' : [8, 16, 32, 64, 128, 256]
+    },
+    "Random Forest" : {
+        'n_estimators' : [8, 16, 32, 64, 128, 256]
+    }
+}
 
 
 class ModelTrainer:
@@ -26,8 +43,19 @@ class ModelTrainer:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-    def perform_hyper_parameter_tuning(self):
-        pass
+    def perform_hyper_param_tuning(self, X_train, y_train, X_test, y_test):
+        try:
+            model_report : dict = self.evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models, params=hyper_params)
+
+            best_model_score = max(sorted(model_report.values()))
+
+            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
+            print(f'----{best_model_name}')
+            best_model = models[best_model_name]
+            print(best_model)
+            return best_model
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
     
 
     def train_model(self,x_train,y_train):
@@ -89,5 +117,6 @@ class ModelTrainer:
             logging.info(f"Model trainer artifact: {model_trainer_artifact}")
             
             return model_trainer_artifact
+        
         except Exception as e:
             raise NetworkSecurityException(e,sys)
