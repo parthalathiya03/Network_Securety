@@ -26,7 +26,7 @@ class ModelTrainer:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-    def perform_hyper_parameter_tunig(self):
+    def perform_hyper_parameter_tuning(self):
         pass
     
 
@@ -75,15 +75,19 @@ class ModelTrainer:
             
             model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
             os.makedirs(model_dir_path,exist_ok=True)
+            
             Network_Model = NetworkModel(preprocessor=preprocessor,model=model)
             save_object(self.model_trainer_config.trained_model_file_path, obj=Network_Model)
 
             #model trainer artifact
 
             model_trainer_artifact = ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path, 
+                                                          
             train_metric_artifact=classification_train_metric,
             test_metric_artifact=classification_test_metric)
+            
             logging.info(f"Model trainer artifact: {model_trainer_artifact}")
+            
             return model_trainer_artifact
         except Exception as e:
             raise NetworkSecurityException(e,sys)
